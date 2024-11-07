@@ -3,12 +3,13 @@
 The Alumni Association intro project is a web based discussion page where users can make posts and comment or like on other user's posts. 
 
 ## Installation
+Clone Git repository to your local machine.
 
-//TODO
+Run ```sh envsetup.sh``` if you do not have a proper Django-equipped virtual environment setup already. This command will create the environment, install Django on the environment, and start the environment.
 
-```bash
-//TODO
-```
+If you have the environment already, run ```source env/bin/activate``` on Mac or ```env\\Scripts\\activate``` on Windows.
+
+From here you can use the command ```cd backend``` and then ```sh run.sh dev``` or ```sh run.sh prod``` depending on if you want the development or production version of the server. 
 
 ## Usage
 
