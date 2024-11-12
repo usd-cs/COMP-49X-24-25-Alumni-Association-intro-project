@@ -17,8 +17,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.views.generic import TemplateView
+from intro_proj.views import register, user_login
 
 urlpatterns = [
-    path('', TemplateView.as_view(template_name="index.html")),
+    path('', TemplateView.as_view(template_name="index.html"), name='home'),
+    path('register', register, name='register'),
+    path('login', user_login, name='login'),
     path('admin/', admin.site.urls),
 ]
