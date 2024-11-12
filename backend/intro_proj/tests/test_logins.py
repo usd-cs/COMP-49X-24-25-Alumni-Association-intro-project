@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.urls import reverse
-from intro_proj.models import User, Comment, Post
+from intro_proj.models import User
 
 class LoginTests(TestCase):
     def setUp(self):
