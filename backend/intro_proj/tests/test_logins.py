@@ -49,3 +49,26 @@ class LoginTests(TestCase):
     def test_blank_pass(self):
         self.client.post(reverse('register'), {'username':'John User', 'email':'user@sandiego.edu', 'password': ''})
         self.assertFalse(User.objects.filter(email='user@sandiego.edu').exists())
+        
+    def test_logout(self):
+        # Log in the user
+        self.client.login(username='John User', password='passw0rd')
+        
+        # Ensure the user is logged in
+        response = self.client.get(reverse('home'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(response.context['user'].is_authenticated)
+
+        # Log out the user
+        response = self.client.get(reverse('logout'))
+        
+        # Check the response
+        self.assertEqual(response.status_code, 302)  # Assuming logout redirects to another page
+        
+        # Follow the redirect
+        response = self.client.get(response.url)
+        
+        # Ensure the user is logged out
+        response = self.client.get(reverse('home'))
+        self.assertEqual(response.status_code, 302)  # Should redirect to login page
+        self.assertFalse(response.context['user'].is_authenticated)
