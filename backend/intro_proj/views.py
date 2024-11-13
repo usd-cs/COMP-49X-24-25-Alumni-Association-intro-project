@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 
 def register(request):
     if request.method == 'POST':
@@ -25,3 +25,7 @@ def user_login(request):
         else:
             return render(request, 'login.html')
     return render(request, 'login.html')
+
+def user_logout(request):
+    logout(request)
+    return redirect('login')
