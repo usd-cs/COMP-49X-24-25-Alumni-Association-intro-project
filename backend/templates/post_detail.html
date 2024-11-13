@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card mb-4">
+        <div class="card-body">
+            <h1 class="card-title">{{ post.title }}</h1>
+            <p class="text-muted">Posted by {{ post.author }} on {{ post.time_posted|date:"F d, Y" }}</p>
+            <p class="card-text">{{ post.content }}</p>
+        </div>
+    </div>
+
+    <!-- Comments Section -->
+    <div class="comments-section">
+        <h3>Comments</h3>
+        
+        {% if user.is_authenticated %}
+            <form method="post" action="/posts/{{ post.post_ID }}/comment/" class="mb-4">
+                {% csrf_token %}
+                {{ comment_form.as_p }}
+                <button type="submit" class="btn btn-primary">Add Comment</button>
+            </form>
+        {% endif %}
+
+        {% for comment in comments %}
+            <div class="card mb-2">
+                <div class="card-body">
+                    <p class="card-text">{{ comment.content }}</p>
+                    <p class="text-muted">
+                        By {{ comment.author }} on {{ comment.time_posted|date:"F d, Y" }}
+                        {% if user == comment.author or user.is_staff %}
+                            <a href="/comments/{{ comment.comment_ID }}/delete/" 
+                               class="btn btn-danger btn-sm float-end">Delete</a>
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+        {% empty %}
+            <p>No comments yet.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
