@@ -55,6 +55,8 @@ class LoginTests(TestCase):
         self.client.login(username='John User', password='passw0rd')
         
         # Ensure the user is logged in
+        self.client.post(reverse('register'), self.test_data)
+        response = self.client.post(reverse('login'), {'username':'John User', 'password': 'passw0rd'})
         response = self.client.get(reverse('home'))
         self.assertEqual(response.status_code, 200)
         self.assertTrue(response.context['user'].is_authenticated)
