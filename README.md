@@ -9,12 +9,24 @@ Run ```sh envsetup.sh``` if you do not have a proper Django-equipped virtual env
 
 If you have the environment already, run ```source env/bin/activate``` on Mac or ```env\\Scripts\\activate``` on Windows.
 
-From here you can use the command ```cd backend``` and then ```sh run.sh dev``` or ```sh run.sh prod``` depending on if you want the development or production version of the server. 
+From here you can use the command
+
+ ```cd backend``` 
+ 
+ and then you will need to migrate the database by doing 
+
+```python manage.py makemigrations intro_proj```
+
+```python manage.py migrate intro_proj```
 
 ## Usage
 
 ```python
-//TODO
+#Open terminal and run:
+
+python manage.py runserver
+
+#Navigate to http://127.0.0.1:8000/ in any browser
 ```
 
 ## Contributing
