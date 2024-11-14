@@ -2,9 +2,11 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from .models import Post, Comment
 from .forms import PostForm, CommentForm
-
+from django.template.loader import render_to_string
+from django.http import JsonResponse
 
 def register(request):
     if request.method == 'POST':
@@ -15,7 +17,7 @@ def register(request):
             if not User.objects.filter(email=email).exists():
                 user = User.objects.create_user(username=username, email=email, password=password)
                 user.save()
-                return redirect('login')
+                return redirect('user_login')
     return render(request, 'register.html')
 
 def user_login(request):
@@ -27,6 +29,7 @@ def user_login(request):
             login(request, user)
             return redirect('home')
         else:
+            messages.error(request, "Invalid username or password.")
             return render(request, 'login.html')
     return render(request, 'login.html')
 
@@ -96,5 +99,4 @@ def delete_post(request, post_id):
 
 def user_logout(request):
     logout(request)
-    return redirect('login')
-
+    return redirect('user_login')

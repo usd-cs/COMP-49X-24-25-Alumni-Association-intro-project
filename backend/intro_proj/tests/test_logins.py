@@ -20,22 +20,22 @@ class LoginTests(TestCase):
 
     def test_login_success(self):
         self.client.post(reverse('register'), self.test_data)
-        response = self.client.post(reverse('login'), {'username':'John User', 'password': 'passw0rd'})
+        response = self.client.post(reverse('user_login'), {'username':'John User', 'password': 'passw0rd'})
         self.assertEqual(response.status_code, 302)
     
     def test_bad_pass(self):
         self.client.post(reverse('register'), self.test_data)
-        response = self.client.post(reverse('login'), {'username':'John User', 'password': 'notmypass'})
+        response = self.client.post(reverse('user_login'), {'username':'John User', 'password': 'notmypass'})
         self.assertEqual(response.status_code, 200)
     
     def test_bad_user(self):
         self.client.post(reverse('register'), self.test_data)
-        response = self.client.post(reverse('login'), {'username':'Jane User', 'password': 'passw0rd'})
+        response = self.client.post(reverse('user_login'), {'username':'Jane User', 'password': 'passw0rd'})
         self.assertEqual(response.status_code, 200)
     
     def test_bad_both(self):
         self.client.post(reverse('register'), self.test_data)
-        response = self.client.post(reverse('login'), {'username':'Jane User', 'password': 'notmypass'})
+        response = self.client.post(reverse('user_login'), {'username':'Jane User', 'password': 'notmypass'})
         self.assertEqual(response.status_code, 200)
     
     def test_blank_name(self):
@@ -54,7 +54,7 @@ class LoginTests(TestCase):
         
         # Ensure the user is logged in
         self.client.post(reverse('register'), self.test_data)
-        response = self.client.post(reverse('login'), {'username':'John User', 'password': 'passw0rd'})
+        response = self.client.post(reverse('user_login'), {'username':'John User', 'password': 'passw0rd'})
         response = self.client.get(reverse('home'))
         self.assertEqual(response.status_code, 200)
         self.assertTrue(response.context['user'].is_authenticated)
