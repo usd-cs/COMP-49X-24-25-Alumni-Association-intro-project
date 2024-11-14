@@ -58,7 +58,7 @@
 {% block content %}
 <div class="popup-content">
     <h2>Login</h2>
-    <form id="loginForm" method="POST" action="{% url 'user_login' %}">
+    <form id="loginForm" method="POST">
         {% csrf_token %}
         <label for="username">Username</label>
         <input type="text" name="username" id="username" required>
@@ -67,7 +67,6 @@
         <input type="password" name="password" id="password" required>
 
         <button type="submit" class="submit-btn">Login</button>
-        <a href="{% url 'home' %}" class="close-btn">Cancel</a>
     </form>
     {% if messages %}
         <div class="error-messages">

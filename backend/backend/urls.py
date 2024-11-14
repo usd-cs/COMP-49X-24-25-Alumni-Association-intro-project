@@ -44,6 +44,5 @@ urlpatterns = [
     path('comments/<int:comment_id>/delete/', delete_comment, name='delete_comment'),
     path('post/<int:post_id>/delete/', delete_post, name='delete_post'),
     path('logout', user_logout, name='logout'),
-    path('admin/', admin.site.urls),
 ]
 

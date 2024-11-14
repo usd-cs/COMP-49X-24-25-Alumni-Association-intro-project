@@ -13,26 +13,14 @@
             <div class="navbar-nav ms-auto">
                 {% if user.is_authenticated %}
                     <span class="nav-item nav-link">Welcome, {{ user.username }}</span>
-                    <a class="nav-link" href="{% url 'create_post' %}">Create Post</a>
-                    <a class="nav-link" href="{% url 'home' %}">Posts</a>
+                    <a class="nav-link" href="{% url 'logout' %}">Logout</a>
                 {% else %}
                     <!-- Trigger the login popup -->
                     <a class="nav-link" href="{% url 'user_login' %}">Login</a>
-                    <a class="nav-link" href="{% url 'register' %}">Register</a>
                 {% endif %}
             </div>
         </div>
     </nav>
-
-    {% if messages %}
-        <div class="container mt-3">
-            {% for message in messages %}
-                <div class="alert alert-{{ message.tags }}">
-                    {{ message }}
-                </div>
-            {% endfor %}
-        </div>
-    {% endif %}
 
     {% block content %}
     {% endblock %}
