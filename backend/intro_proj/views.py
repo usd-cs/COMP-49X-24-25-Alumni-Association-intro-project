@@ -8,6 +8,8 @@ from .forms import PostForm, CommentForm
 from django.template.loader import render_to_string
 from django.http import JsonResponse
 
+'''This function is called when someone goes to the /register URL
+The function will render the register page and then actually register the user if they fill out the form.'''
 def register(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -20,6 +22,9 @@ def register(request):
                 return redirect('user_login')
     return render(request, 'register.html')
 
+'''This function is called when someone goes to the /login URL
+This function will render the login page and then log a user in if they enter valid credentials, otherwise it
+will display an error message and prompt the user to log in again.'''
 def user_login(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -33,7 +38,8 @@ def user_login(request):
             return render(request, 'login.html')
     return render(request, 'login.html')
 
-#Post Views    
+'''This function is called when someone is on the home page looking to see the post list.
+It will render the post_list.html page and provide the page with a list of all the posts.''' 
 def post_list(request):
     posts = Post.objects.all().order_by('-time_posted')
     return render(request, 'post_list.html', {  # Remove 'posts/' prefix
@@ -41,6 +47,8 @@ def post_list(request):
         'view_type': 'list'
     })
 
+'''This function is called whenever someone clickes on a specific post.
+It will render the post_detail.html page and provide all of the details on the post and comments underneath it.'''
 def post_detail(request, post_id):
     post = get_object_or_404(Post, post_ID=post_id)
     comments = post.comment_set.all().order_by('-time_posted')
@@ -52,6 +60,8 @@ def post_detail(request, post_id):
         'view_type': 'detail'
     })
 
+'''This function is called whenever someone creates a post. It will render a create_post.html page and then add the post to the database.
+'''
 @login_required
 def create_post(request):
     if request.method == 'POST':
@@ -68,6 +78,8 @@ def create_post(request):
         'view_type': 'create'
     })
 
+'''This function is called whenever someone posts a comment. It will add the comment to the database.
+'''
 @login_required
 def add_comment(request, post_id):
     post = get_object_or_404(Post, post_ID=post_id)
@@ -80,6 +92,7 @@ def add_comment(request, post_id):
             comment.save()
     return redirect('post_detail', post_id=post_id)
 
+'''This function is called whenever an admin deletes a comment.'''
 @login_required
 def delete_comment(request, comment_id):
     comment = get_object_or_404(Comment, comment_ID=comment_id)
@@ -89,6 +102,7 @@ def delete_comment(request, comment_id):
         return redirect('post_detail', post_id=post_id)
     return redirect('home')
 
+'''This function is called whenever an admin deletes a post.'''
 @login_required
 def delete_post(request, post_id):
     post = get_object_or_404(Post, post_ID=post_id)
@@ -97,6 +111,7 @@ def delete_post(request, post_id):
         return redirect('home')
     return redirect('post_detail', post_id=post_id)
 
+'''This function is caled whenever someone logs out of the system, it will log them out and then redirect to the login page.'''
 def user_logout(request):
     logout(request)
     return redirect('user_login')
