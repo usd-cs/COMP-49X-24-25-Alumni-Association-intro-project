@@ -1,5 +1,229 @@
+
 {% extends 'posts/post_list.html' %}
 
 {% block content %}
     {{ block.super }}
 {% endblock %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COMP 491 Intro Project</title>
+    <style>
+        /* Styles for the page layout and popup */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+        }
+        .header {
+            text-align: center;
+            padding: 10px 0;
+        }
+        .auth-buttons {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+        }
+        .auth-buttons button {
+            font-size: 14px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .welcome {
+            text-align: center;
+            padding: 10px;
+            border: 1px solid #ddd;
+            margin: 10px 0;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #000;
+            cursor: pointer;
+            text-align: center;
+            width: 100%;
+        }
+        .post {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin: 20px 0;
+            background-color: #f0f0f0;
+        }
+        .post-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .comments {
+            margin-top: 10px;
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+        }
+        .comment {
+            border: 1px solid #ddd;
+            padding: 5px;
+            margin: 5px 0;
+            display: inline-block;
+        }
+        .new-comment-btn {
+            padding: 10px;
+            border: 1px solid #000;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        /* Styles for the popup overlay and content */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .popup-content {
+            background-color: #ffffff;
+            padding: 20px;
+            width: 300px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+        .popup-content label {
+            display: block;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .popup-content input[type="text"],
+        .popup-content input[type="password"] {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .submit-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+        }
+        .close-btn {
+            background-color: #f44336;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 5px;
+        }
+        .error-messages {
+            color: red;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>COMP 491 Intro Project</h1>
+        </div>
+        
+        <div class="auth-buttons">
+            <!-- Login uutton that will trigger popup -->
+            <button id="loginButton">Login</button>
+            <form method="POST" action="{% url 'logout' %}" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit">Logout</button>
+            </form>
+        </div>
+
+        <div class="welcome">
+            {% if user.is_authenticated %}
+                Hello, {{ user.username }}!
+            {% else %}
+                Hello, Guest!
+            {% endif %}
+        </div>
+
+        <!-- test posts and comments -->
+        <div class="button">
+            + New Post
+        </div>
+        <div class="post">
+            <div class="post-title">Test Post Title</div>
+            <div class="post-content">Test post text here...</div>
+            <div class="comments">
+                <div class="new-comment-btn">+ New Comment</div>
+                <div class="comment">Comment 1</div>
+                <div class="comment">Comment 2</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Popup Overlay -->
+    <div class="popup-overlay" id="popupContainer">
+        <div class="popup-content">
+            <h2>Login</h2>
+            <form id="loginForm" method="POST" action="{% url 'user_login' %}">
+                {% csrf_token %}
+                <label for="username">Username</label>
+                <input type="text" name="username" id="username" required>
+
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password" required>
+
+                <button type="submit" class="submit-btn">Login</button>
+                <button type="button" class="close-btn" onclick="closeLoginPopup()">Close</button>
+            </form>
+            {% if messages %}
+                <div class="error-messages">
+                    {% for message in messages %}
+                        <p>{{ message }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!--  control popup visibility -->
+    <script>
+        document.getElementById("loginButton").addEventListener("click", function() {
+            document.getElementById("popupContainer").style.display = "flex";
+        });
+
+        function closeLoginPopup() {
+            document.getElementById("popupContainer").style.display = "none";
+        }
+    </script>
+
+    {% block content %}{% endblock %}
+    
+</body>
+</html>

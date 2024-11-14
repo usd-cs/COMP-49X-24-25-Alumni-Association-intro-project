@@ -4,7 +4,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from .models import Post, Comment
 from .forms import PostForm, CommentForm
-
+from django.template.loader import render_to_string
+from django.http import JsonResponse
 
 def register(request):
     if request.method == 'POST':
@@ -97,4 +98,13 @@ def delete_post(request, post_id):
 def user_logout(request):
     logout(request)
     return redirect('login')
+
+def home_with_login(request):
+    # make index home page
+    return render(request, 'index.html')
+
+def login_popup(request):
+    # render login form template HTML for the popup
+    html = render_to_string('login_form.html')  # login_form.html the form HTML
+    return JsonResponse({'html': html})
 

@@ -1,6 +1,110 @@
-<form method="POST">
-    {% csrf_token %}
-    <input type="text" name="username" placeholder="Username" required>
-    <input type="password" name="password" placeholder="Password" required>
-    <button type="submit">Login</button>
-</form>
+{% extends 'index.html' %}
+
+<style>
+    /* popup style */
+    .popup-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.4);
+        display: none; /* Hidden initially */
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+    }
+
+    .popup-content {
+        background-color: #ffffff;
+        padding: 20px;
+        width: 300px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .popup-content label {
+        display: block;
+        font-weight: bold;
+        margin-top: 10px;
+    }
+
+    .popup-content input[type="text"],
+    .popup-content input[type="password"] {
+        width: 100%;
+        padding: 8px;
+        margin-top: 5px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    .submit-btn {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .close-btn {
+        background-color: #f44336;
+        color: white;
+        padding: 10px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        width: 100%;
+        margin-top: 5px;
+    }
+
+    .error-messages {
+        color: red;
+        margin-top: 10px;
+        font-size: 14px;
+    }
+</style>
+
+{% block content %}
+    {{ block.super }}
+
+    <!-- Popup that overlays page -->
+    <div class="popup-overlay" id="popupContainer">
+        <div class="popup-content">
+            <h2>Login</h2>
+            <form id="loginForm" method="POST" action="{% url 'user_login' %}">
+                {% csrf_token %}
+                <label for="username">Username</label>
+                <input type="text" name="username" id="username" required>
+
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password" required>
+
+                <button type="submit" class="submit-btn">Login</button>
+                <button type="button" class="close-btn" onclick="closeLoginPopup()">Close</button>
+            </form>
+            {% if messages %}
+                <div class="error-messages">
+                    {% for message in messages %}
+                        <p>{{ message }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <script>
+        // JavaScript to show the login popup when 'Login' button is clicked
+        document.getElementById("loginButton").addEventListener("click", function() {
+            document.getElementById("popupContainer").style.display = "flex";
+        });
+
+        // Function to close the login popup when 'Close' button is clicked
+        function closeLoginPopup() {
+            document.getElementById("popupContainer").style.display = "none";
+        }
+    </script> 
+{% endblock %}
