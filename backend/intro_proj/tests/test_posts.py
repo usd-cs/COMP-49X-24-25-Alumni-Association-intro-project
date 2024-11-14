@@ -25,7 +25,7 @@ class PostTests(TestCase):
         )
 
     def test_post_list_view(self):
-        response = self.client.get(reverse('post_list'))
+        response = self.client.get(reverse('home'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'post_list.html')  # Updated template path
         self.assertContains(response, 'Test post content')
