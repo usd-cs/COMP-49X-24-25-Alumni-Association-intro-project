@@ -1,24 +1,11 @@
-{% extends 'index.html' %}
+{% extends 'base.html' %}
 
 <style>
-    /* popup style */
-    .popup-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.4);
-        display: none; /* Hidden initially */
-        justify-content: center;
-        align-items: center;
-        z-index: 1000;
-    }
-
     .popup-content {
         background-color: #ffffff;
         padding: 20px;
         width: 300px;
+        margin: 100px auto; /* Center the form on the page */
         border-radius: 8px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
@@ -69,42 +56,25 @@
 </style>
 
 {% block content %}
-    {{ block.super }}
+<div class="popup-content">
+    <h2>Login</h2>
+    <form id="loginForm" method="POST" action="{% url 'user_login' %}">
+        {% csrf_token %}
+        <label for="username">Username</label>
+        <input type="text" name="username" id="username" required>
 
-    <!-- Popup that overlays page -->
-    <div class="popup-overlay" id="popupContainer">
-        <div class="popup-content">
-            <h2>Login</h2>
-            <form id="loginForm" method="POST" action="{% url 'user_login' %}">
-                {% csrf_token %}
-                <label for="username">Username</label>
-                <input type="text" name="username" id="username" required>
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" required>
 
-                <label for="password">Password</label>
-                <input type="password" name="password" id="password" required>
-
-                <button type="submit" class="submit-btn">Login</button>
-                <button type="button" class="close-btn" onclick="closeLoginPopup()">Close</button>
-            </form>
-            {% if messages %}
-                <div class="error-messages">
-                    {% for message in messages %}
-                        <p>{{ message }}</p>
-                    {% endfor %}
-                </div>
-            {% endif %}
+        <button type="submit" class="submit-btn">Login</button>
+        <a href="{% url 'home' %}" class="close-btn">Cancel</a>
+    </form>
+    {% if messages %}
+        <div class="error-messages">
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
         </div>
-    </div>
-
-    <script>
-        // JavaScript to show the login popup when 'Login' button is clicked
-        document.getElementById("loginButton").addEventListener("click", function() {
-            document.getElementById("popupContainer").style.display = "flex";
-        });
-
-        // Function to close the login popup when 'Close' button is clicked
-        function closeLoginPopup() {
-            document.getElementById("popupContainer").style.display = "none";
-        }
-    </script> 
+    {% endif %}
+</div>
 {% endblock %}
