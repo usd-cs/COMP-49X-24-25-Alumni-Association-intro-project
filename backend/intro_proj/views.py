@@ -32,7 +32,7 @@ def user_login(request):
 #Post Views    
 def post_list(request):
     posts = Post.objects.all().order_by('-time_posted')
-    return render(request, 'post_list.html', {
+    return render(request, 'post_list.html', {  # Remove 'posts/' prefix
         'posts': posts,
         'view_type': 'list'
     })
@@ -41,7 +41,7 @@ def post_detail(request, post_id):
     post = get_object_or_404(Post, post_ID=post_id)
     comments = post.comment_set.all().order_by('-time_posted')
     comment_form = CommentForm()
-    return render(request, 'post_detail.html', {
+    return render(request, 'post_detail.html', {  # Remove 'posts/' prefix
         'post': post,
         'comments': comments,
         'comment_form': comment_form,
@@ -56,10 +56,10 @@ def create_post(request):
             post = form.save(commit=False)
             post.author = request.user
             post.save()
-            return redirect('post_list')
+            return redirect('home')
     else:
         form = PostForm()
-    return render(request, 'create_post.html', {
+    return render(request, 'create_post.html', {  # Remove 'posts/' prefix
         'form': form,
         'view_type': 'create'
     })

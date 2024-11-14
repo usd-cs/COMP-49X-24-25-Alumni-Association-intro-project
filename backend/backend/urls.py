@@ -28,14 +28,13 @@ from intro_proj.views import (
 )
 
 urlpatterns = [
-    path('', TemplateView.as_view(template_name="index.html"), name='home'),
+    path('', post_list, name='home'),  # New homepage with posts
     path('register', register, name='register'),
     path('login', user_login, name='login'),
     path('admin/', admin.site.urls),
-    #Post Urls
-    path('posts/', post_list, name='post_list'),
-    path('posts/create/', create_post, name='create_post'),
-    path('posts/<int:post_id>/', post_detail, name='post_detail'),
-    path('posts/<int:post_id>/comment/', add_comment, name='add_comment'),
+    #Posts Urls
+    path('create/', create_post, name='create_post'),
+    path('post/<int:post_id>/', post_detail, name='post_detail'),
+    path('post/<int:post_id>/comment/', add_comment, name='add_comment'),
     path('comments/<int:comment_id>/delete/', delete_comment, name='delete_comment'),
 ]
