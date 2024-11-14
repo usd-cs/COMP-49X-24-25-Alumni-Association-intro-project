@@ -78,13 +78,15 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="header">
             <h1>COMP 491 Intro Project</h1>
         </div>
+        
         <div class="auth-buttons">
-            <button>Login</button>
+            <button id="loginButton">Login</button>
             <button>Logout</button>
         </div>
         <div class="welcome">
@@ -104,8 +106,9 @@
                 <div class="comment">Comment 2</div>
             </div>
         </div>
-        
     </div>
+
+    {% block content %}{% endblock %}
+    
 </body>
 </html>
-

@@ -29,3 +29,6 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     return redirect('login')
+
+def home_with_login(request):
+    return render(request, 'login.html')  # Use login_popup.html which extends home.html
