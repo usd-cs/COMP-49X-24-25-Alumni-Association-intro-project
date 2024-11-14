@@ -17,12 +17,29 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.views.generic import TemplateView
-from intro_proj.views import register, user_login, user_logout
+from intro_proj.views import (
+    register, 
+    user_login,
+    user_logout,
+    post_list, 
+    post_detail, 
+    create_post, 
+    add_comment, 
+    delete_comment,
+    delete_post
+)
 
 urlpatterns = [
-    path('', TemplateView.as_view(template_name="index.html"), name='home'),
+    path('', post_list, name='home'),  # New homepage with posts
     path('register', register, name='register'),
     path('login', user_login, name='login'),
     path('admin/', admin.site.urls),
+    #Posts Urls
+    path('posts/create/', create_post, name='create_post'),
+    path('post/<int:post_id>/', post_detail, name='post_detail'),
+    path('post/<int:post_id>/comment/', add_comment, name='add_comment'),
+    path('comments/<int:comment_id>/delete/', delete_comment, name='delete_comment'),
+    path('post/<int:post_id>/delete/', delete_post, name='delete_post'),
+
     path('logout', user_logout, name='logout'),
 ]
