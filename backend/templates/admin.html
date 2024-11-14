@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COMP 491 Admin View</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+        .header {
+            text-align: center;
+            padding: 10px 0;
+        }
+        .auth-buttons {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+        }
+        .auth-buttons button {
+            font-size: 14px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .welcome {
+            text-align: center;
+            padding: 10px;
+            border: 1px solid #ddd;
+            margin: 10px 0;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px;
+            margin: 10px auto;
+            border: 1px solid #000;
+            cursor: pointer;
+            text-align: center;
+            width: auto;
+        }
+        .post {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin: 20px 0;
+            background-color: #f0f0f0;
+            position: relative;
+        }
+        .post-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .delete-post-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 12px;
+            padding: 5px;
+            border: 1px solid #000;
+            cursor: pointer;
+        }
+        .comments {
+            margin-top: 10px;
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+        }
+        .comment {
+            border: 1px solid #ddd;
+            padding: 5px;
+            margin: 5px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .delete-comment-btn {
+            font-size: 12px;
+            padding: 3px;
+            border: 1px solid #000;
+            cursor: pointer;
+        }
+        .new-comment-btn {
+            padding: 10px;
+            border: 1px solid #000;
+            cursor: pointer;
+            display: inline-block;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>COMP 491 Admin View</h1>
+        </div>
+        <div class="auth-buttons">
+            <button>Login</button>
+            <button>Logout</button>
+        </div>
+        <div class="welcome">
+            Hello, Admin!
+        </div>
+        <div class="button">
+            + New Post
+        </div>
+
+        <!-- Post 1 with Delete Post Button -->
+        <div class="post">
+            <button class="delete-post-btn">Delete Post</button>
+            <div class="post-title">Test Post Title</div>
+            <div class="post-content">Test post text here...</div>
+            <div class="comments">
+                <div class="new-comment-btn">+ New Comment</div>
+                <div class="comment">
+                    Comment 1
+                    <button class="delete-comment-btn">Delete Comment</button>
+                </div>
+                <div class="comment">
+                    Comment 2
+                    <button class="delete-comment-btn">Delete Comment</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Post 2 with Delete Post Button -->
+        <div class="post">
+            <button class="delete-post-btn">Delete Post</button>
+            <div class="post-title">Test Post Title</div>
+            <div class="post-content">Test post text here...</div>
+            <div class="comments">
+                <div class="new-comment-btn">+ New Comment</div>
+                <div class="comment">
+                    Comment 1
+                    <button class="delete-comment-btn">Delete Comment</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
