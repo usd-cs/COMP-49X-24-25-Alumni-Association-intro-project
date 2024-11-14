@@ -17,12 +17,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.views.generic import TemplateView
-from intro_proj.views import register, user_login, user_logout, home_with_login
+from intro_proj.views import register, user_login, user_logout, home_with_login, login_popup
 
 urlpatterns = [
     path('', home_with_login, name='home'),  # Use `home_with_login` view for the homepage
     path('register', register, name='register'),
     path('login', user_login, name='user_login'),
+    path('login-popup/', login_popup, name='login_popup'),  # New URL for AJAX popup content
     path('logout', user_logout, name='logout'),
     path('admin/', admin.site.urls),
 ]
+
