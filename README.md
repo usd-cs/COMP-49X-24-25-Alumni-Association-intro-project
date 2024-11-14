@@ -13,12 +13,12 @@ From here you can use the command ```cd backend``` and then ```sh run.sh dev``` 
 
 ## Usage
 
-```
-1. Clone Repository 
-2. Open Terminal 
-3. in terminal do '''python manage.py runserver'''
-4. access server from http://127.0.0.1:8000/
-5. Navigate site as you wish
+```python
+#Open terminal and run:
+
+python manage.py runserver
+
+#Navigate to http://127.0.0.1:8000/ in any browser
 ```
 
 ## Contributing
