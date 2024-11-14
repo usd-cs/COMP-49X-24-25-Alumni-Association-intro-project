@@ -1,15 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COMP 491 Intro Project</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+        }
+        .header {
+            text-align: center;
+            padding: 10px 0;
+        }
+        .auth-buttons {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+        }
+        .auth-buttons button {
+            font-size: 14px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .welcome {
+            text-align: center;
+            padding: 10px;
+            border: 1px solid #ddd;
+            margin: 10px 0;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #000;
+            cursor: pointer;
+            text-align: center;
+            width: 100%;
+        }
+        .post {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin: 20px 0;
+            background-color: #f0f0f0;
+        }
+        .post-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .comments {
+            margin-top: 10px;
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+        }
+        .comment {
+            border: 1px solid #ddd;
+            padding: 5px;
+            margin: 5px 0;
+            display: inline-block;
+        }
+        .new-comment-btn {
+            padding: 10px;
+            border: 1px solid #000;
+            cursor: pointer;
+            display: inline-block;
+        }
+    </style>
 </head>
-
 <body>
-  Home page for the website home page probably the page with posts and comments
-</body>
+    <div class="container">
+        <div class="header">
+            <h1>COMP 491 Intro Project</h1>
+        </div>
+        <div class="auth-buttons">
+            <button>Login</button>
+            <button>Logout</button>
+        </div>
+        <div class="welcome">
+            Hello, [username]!
+        </div>
+        <div class="button">
+            + New Post
+        </div>
 
+        <!-- Post 1 -->
+        <div class="post">
+            <div class="post-title">Test Post Title</div>
+            <div class="post-content">Test post text here...</div>
+            <div class="comments">
+                <div class="new-comment-btn">+ New Comment</div>
+                <div class="comment">Comment 1</div>
+                <div class="comment">Comment 2</div>
+            </div>
+        </div>
+        
+    </div>
+</body>
 </html>
+
