@@ -29,17 +29,13 @@ from intro_proj.views import (
     add_comment, 
     delete_comment,
     delete_post,
-    home_with_login,
-    login_popup
 )
 #path('', home_with_login, name='home'),
 
 urlpatterns = [  
     path('login', user_login, name='user_login'),
-    path('login-popup/', login_popup, name='login_popup'),
     path('', post_list, name='home'),  # New homepage with posts
     path('register', register, name='register'),
-    path('login', user_login, name='login'),
     path('admin/', admin.site.urls),
     #Posts Urls
     path('posts/create/', create_post, name='create_post'),
