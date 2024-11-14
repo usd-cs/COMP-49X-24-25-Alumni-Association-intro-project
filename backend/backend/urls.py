@@ -19,7 +19,8 @@ from django.urls import path
 from django.views.generic import TemplateView
 from intro_proj.views import (
     register, 
-    user_login, 
+    user_login,
+    user_logout,
     post_list, 
     post_detail, 
     create_post, 
@@ -39,4 +40,6 @@ urlpatterns = [
     path('post/<int:post_id>/comment/', add_comment, name='add_comment'),
     path('comments/<int:comment_id>/delete/', delete_comment, name='delete_comment'),
     path('post/<int:post_id>/delete/', delete_post, name='delete_post'),
+
+    path('logout', user_logout, name='logout'),
 ]

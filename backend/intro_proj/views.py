@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from .models import Post, Comment
 from .forms import PostForm, CommentForm
+
 
 def register(request):
     if request.method == 'POST':
@@ -92,3 +93,8 @@ def delete_post(request, post_id):
         post.delete()
         return redirect('home')
     return redirect('post_detail', post_id=post_id)
+
+def user_logout(request):
+    logout(request)
+    return redirect('login')
+
