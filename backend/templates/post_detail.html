@@ -7,6 +7,14 @@
             <h1 class="card-title">{{ post.title }}</h1>
             <p class="text-muted">Posted by {{ post.author }} on {{ post.time_posted|date:"F d, Y" }}</p>
             <p class="card-text">{{ post.content }}</p>
+            
+            {% if user.is_staff %}  <!-- Changed this line to admin-only -->
+                <a href="{% url 'delete_post' post.post_ID %}" 
+                   class="btn btn-danger" 
+                   onclick="return confirm('Are you sure you want to delete this post?')">
+                    Delete Post
+                </a>
+            {% endif %}
         </div>
     </div>
 
@@ -15,7 +23,7 @@
         <h3>Comments</h3>
         
         {% if user.is_authenticated %}
-            <form method="post" action="/posts/{{ post.post_ID }}/comment/" class="mb-4">
+            <form method="post" action="{% url 'add_comment' post.post_ID %}" class="mb-4">
                 {% csrf_token %}
                 {{ comment_form.as_p }}
                 <button type="submit" class="btn btn-primary">Add Comment</button>
@@ -29,8 +37,11 @@
                     <p class="text-muted">
                         By {{ comment.author }} on {{ comment.time_posted|date:"F d, Y" }}
                         {% if user == comment.author or user.is_staff %}
-                            <a href="/comments/{{ comment.comment_ID }}/delete/" 
-                               class="btn btn-danger btn-sm float-end">Delete</a>
+                            <a href="{% url 'delete_comment' comment.comment_ID %}" 
+                               class="btn btn-danger btn-sm float-end"
+                               onclick="return confirm('Are you sure you want to delete this comment?')">
+                                Delete
+                            </a>
                         {% endif %}
                     </p>
                 </div>

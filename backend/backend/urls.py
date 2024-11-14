@@ -24,7 +24,8 @@ from intro_proj.views import (
     post_detail, 
     create_post, 
     add_comment, 
-    delete_comment
+    delete_comment,
+    delete_post
 )
 
 urlpatterns = [
@@ -33,8 +34,9 @@ urlpatterns = [
     path('login', user_login, name='login'),
     path('admin/', admin.site.urls),
     #Posts Urls
-    path('create/', create_post, name='create_post'),
+    path('posts/create/', create_post, name='create_post'),
     path('post/<int:post_id>/', post_detail, name='post_detail'),
     path('post/<int:post_id>/comment/', add_comment, name='add_comment'),
     path('comments/<int:comment_id>/delete/', delete_comment, name='delete_comment'),
+    path('post/<int:post_id>/delete/', delete_post, name='delete_post'),
 ]

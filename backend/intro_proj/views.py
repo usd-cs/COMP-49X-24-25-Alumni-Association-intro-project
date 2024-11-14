@@ -84,3 +84,11 @@ def delete_comment(request, comment_id):
         comment.delete()
         return redirect('post_detail', post_id=post_id)
     return redirect('post_list')
+
+@login_required
+def delete_post(request, post_id):
+    post = get_object_or_404(Post, post_ID=post_id)
+    if request.user.is_staff:  # Only staff/admin can delete
+        post.delete()
+        return redirect('home')
+    return redirect('post_detail', post_id=post_id)
